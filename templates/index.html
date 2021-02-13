@@ -4,6 +4,13 @@
 <title>HomePage</title>
 {% endblock title %}
 
+{% block navfocus %}
+	<a href="{{ url_for('home') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+    <a href="{{ url_for('about') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+    <a href="{{ url_for('login') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">LogIn</a>
+    <a href="{{ url_for('signup') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">SignUp</a>
+{% endblock navfocus %}
+
 {% block body %}
 	<div class="bg-white py-8">
 	    <div class="max-w-lg mx-auto px-10">
