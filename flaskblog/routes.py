@@ -1,43 +1,18 @@
 import os
-from flask import render_template, url_for, redirect, flash, request
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from flask import render_template, url_for, redirect, flash, request, abort
+from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from flaskblog.models import User, Post
 from flaskblog import app, bcrypt, db
 from flask_login import login_user, current_user, logout_user, login_required
 import secrets
 from PIL import Image
 
-posts = [
-	{
-		"title": "I dont know how a long title looks like? so i am just type the same question as long title",
-		"content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error deserunt dicta obcaecati iusto accusamus, magnam, molestias molestiae at. Blanditiis, earum aperiam ex vero adipisci. Voluptatibus!",
-		"author": "Rahul Chaudhary",
-		"date_posted": "13 Feb 2021"
-	},
-	{
-		"title": "Second Post",
-		"content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error deserunt dicta obcaecati iusto accusamus, magnam, molestias molestiae at. Blanditiis, earum aperiam ex vero adipisci. Voluptatibus!",
-		"author": "Rdxmax",
-		"date_posted": "13 Feb 2021"
-	},
-	{
-		"title": "Second Post",
-		"content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error deserunt dicta obcaecati iusto accusamus, magnam, molestias molestiae at. Blanditiis, earum aperiam ex vero adipisci. Voluptatibus!",
-		"author": "Rdxmax",
-		"date_posted": "13 Feb 2021"
-	},
-	{
-		"title": "Second Post",
-		"content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error deserunt dicta obcaecati iusto accusamus, magnam, molestias molestiae at. Blanditiis, earum aperiam ex vero adipisci. Voluptatibus!",
-		"author": "Rdxmax",
-		"date_posted": "13 Feb 2021"
-	}
-]
+
 
 @app.route("/")
 @app.route("/home")
 def home():
-	# image_file = url_for('static', filename='img/'+current_user.image_file)
+	posts = Post.query.all()
 	return render_template("index.html", posts=posts)
 
 @app.route("/about")
@@ -113,3 +88,51 @@ def account():
 		form.email.data = current_user.email
 	image_file = url_for('static', filename='img/'+current_user.image_file)
 	return render_template("account.html", image_file=image_file, form=form)
+
+
+@app.route("/post/new", methods=['GET','POST'])
+@login_required
+def new_post():
+	form = PostForm()
+	if form.validate_on_submit():
+		post = Post(title=form.title.data, content=form.content.data, author=current_user)
+		db.session.add(post)
+		db.session.commit()
+		flash('Post has been created !', 'green')
+		return redirect(url_for('home'))
+	return render_template("new_post.html", form=form, legend="Create New Post")
+
+@app.route("/post/<int:post_id>")
+def post(post_id):
+	post = Post.query.get_or_404(post_id)
+	return render_template('post.html', post=post)
+
+@app.route("/post/<int:post_id>/update", methods=['GET','POST'])
+@login_required
+def update_post(post_id):
+	post = Post.query.get_or_404(post_id)
+	if post.author != current_user:
+		abort(403)
+	form = PostForm()
+	if form.validate_on_submit():
+		post.title = form.title.data
+		post.content = form.content.data
+		db.session.commit()
+		flash("Post Updated Successfully !", 'green')
+		return redirect(url_for('post', post_id=post.id))
+	elif request.method == 'GET':
+		form.title.data = post.title
+		form.content.data = post.content
+	return render_template("new_post.html", form=form, legend="Update Post")
+
+@app.route("/post/<int:post_id>/delete", methods=['POST'])
+@login_required
+def delete_post(post_id):
+	post = Post.query.get_or_404(post_id)
+	if post.author != current_user:
+		abort(403)
+	db.session.delete(post)
+	db.session.commit()
+	flash("Post deleted Successfully !", 'green')
+	return redirect(url_for('home'))
+

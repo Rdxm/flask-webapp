@@ -24,14 +24,14 @@
 	    			{% for post in posts %}
 	    				<li class="py-6">
 				          <div class="flex space-x-3">
-				            <img class="h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1503249023995-51b0f3778ccf?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=611&q=80" alt="">
+				            <img class="h-6 w-6 rounded-full" src="{{ url_for('static', filename='img/'+post.author.image_file) }}" alt="">
 				            <div class="flex-1 space-y-1">
 				              <div class="flex items-center justify-between">
-				              	<h2 class="text-sm font-light">{{ post.author }}</h2>
-				                <p class="text-sm text-gray-500">{{ post.date_posted }}</p>
+				              	<h2 class="text- font-light">{{ post.author.username }}</h2>
+				                <p class="text-sm text-gray-500">{{ post.date_posted.strftime('%Y-%m-%d') }}</p>
 				              </div>
-				              <h3 class="text-base font-semibold">{{ post.title }}</h3>
-				              <p class="text-sm text-gray-500">{{ post.content }}</p>
+				              <h3><a class="text-base font-semibold" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h3>
+				              <p class="text-base text-gray-500">{{ post.content }}</p>
 				            </div>
 				          </div>
 				        </li>	

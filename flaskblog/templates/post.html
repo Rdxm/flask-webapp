@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>HomePage</title>
+{% endblock title %}
+
+{% block navfocus_auth %}
+	<a href="{{ url_for('home') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+    <a href="{{ url_for('about') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+{% endblock navfocus_auth %}
+
+{% block navfocus %}
+	<a href="{{ url_for('home') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+    <a href="{{ url_for('about') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+    <a href="{{ url_for('login') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">LogIn</a>
+    <a href="{{ url_for('signup') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">SignUp</a>
+{% endblock navfocus %}
+
+{% block body %}
+	<div class="bg-white py-8 px-4">
+	    <div class="max-w-lg mx-auto px-10">
+	    	<div>
+	    		<ul class="divide-y divide-gray-200" x-max="1">
+	    				<li class="py-6">
+				          <div class="flex space-x-3 mb-2">
+				            <img class="h-6 w-6 rounded-full" src="{{ url_for('static', filename='img/'+post.author.image_file) }}" alt="">
+				            <div class="flex-1 space-y-1">
+				              <div class="flex items-center justify-between">
+				              	<h2 class="text-sm font-light">{{ post.author.username }}</h2>
+				                <p class="text-sm text-gray-500">{{ post.date_posted.strftime('%Y-%m-%d') }}</p>
+				              </div>
+				              <h3 class="text-base font-semibold">{{ post.title }}</h3>
+				              <p class="text-sm text-gray-500">{{ post.content }}</p>
+				            </div>
+				          </div>
+				        </li>	
+	    		</ul>
+                {% if post.author == current_user %}
+                    <button type="submit" class="ml-3 inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"><a href="{{ url_for('update_post', post_id=post.id) }}">Update</a></button>
+                    <form class="inline-flex" action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+                        <input type="submit" value="Delete" class="ml-3 inline-flex justify-center py-1 px-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    </form>
+                {% endif %}
+	    	</div>
+		</div>
+	</div>
+{% endblock body %}
+
