@@ -12,6 +12,7 @@ flask-bcrypt = "*"
 flask-login = "*"
 pillow = "*"
 flask-mail = "*"
+gunicorn = "*"
 
 [dev-packages]
 
