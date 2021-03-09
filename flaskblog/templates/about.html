@@ -4,6 +4,11 @@
 <title>About Page</title>
 {% endblock title %}
 
+{% block navfocus_auth %}
+	<a href="{{ url_for('home') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+    <a href="{{ url_for('about') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+{% endblock navfocus_auth %}
+
 {% block navfocus %}
 	<a href="{{ url_for('home') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
     <a href="{{ url_for('about') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
