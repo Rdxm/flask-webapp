@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>500</title>
+{% endblock title %}
+
+{% block navfocus_auth %}
+	<a href="{{ url_for('main.home') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+    <a href="{{ url_for('main.about') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+{% endblock navfocus_auth %}
+
+{% block navfocus %}
+	<a href="{{ url_for('main.home') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+    <a href="{{ url_for('main.about') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+    <a href="{{ url_for('users.login') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">LogIn</a>
+    <a href="{{ url_for('users.signup') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">SignUp</a>
+{% endblock navfocus %}
+
+{% block body %}
+<main class="bg-white relative overflow-hidden h-screen relative">
+    <div class="container mx-auto h-screen pt-32 md:pt-0 px-6 z-10 flex items-center justify-between">
+        <div class="container mx-auto px-6 flex flex-col-reverse lg:flex-row justify-between items-center relative">
+            <div class="w-full mb-16 md:mb-8 text-center lg:text-left">
+                <h1 class="font-light font-sans text-center lg:text-left text-5xl lg:text-8xl mt-12 md:mt-0 text-gray-700">
+                    Something went wrong (500)
+                </h1>
+                <button class="px-2 py-2 w-36 mt-16 font-light transition ease-in duration-200 hover:bg-yellow-400 border-2 text-lg border-gray-700 bg-yellow-300 focus:outline-none"><a href="{{ url_for('main.home') }}">
+                    Go back home</a>
+                </button>
+            </div>
+            <div class="block w-full mx-auto md:mt-0 relative max-w-md lg:max-w-2xl">
+                <img src="{{ url_for('static', filename='img/1.jpg') }}"/>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock body %}

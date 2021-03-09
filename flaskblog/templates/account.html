@@ -5,15 +5,15 @@
 {% endblock title %}
 
 {% block navfocus_auth %}
-	<a href="{{ url_for('home') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-    <a href="{{ url_for('about') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+	<a href="{{ url_for('main.home') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+    <a href="{{ url_for('main.about') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
 {% endblock navfocus_auth %}
 
 {% block navfocus %}
-	<a href="{{ url_for('home') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-    <a href="{{ url_for('about') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
-    <a href="{{ url_for('login') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">LogIn</a>
-    <a href="{{ url_for('signup') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">SignUp</a>
+	<a href="{{ url_for('main.home') }}" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+    <a href="{{ url_for('main.about') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+    <a href="{{ url_for('users.login') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">LogIn</a>
+    <a href="{{ url_for('users.signup') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">SignUp</a>
 {% endblock navfocus %}
 
 {% block body %}
